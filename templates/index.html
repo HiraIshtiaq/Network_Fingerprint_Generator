@@ -1,0 +1,115 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Fingerprint Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Network Fingerprint Generator</h1>
+            <p class="subtitle">Capture, analyze, and compare website network behavior</p>
+        </header>
+
+        <main>
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="single">Single Analysis</button>
+                <button class="mode-btn" data-mode="compare">Compare Sites</button>
+            </div>
+
+            <div id="singleMode" class="input-section">
+                <div class="input-group">
+                    <input type="text" id="urlInput" placeholder="Enter URL (e.g., https://youtube.com or google.com)" autocomplete="off">
+                    <button id="analyzeBtn">Analyze</button>
+                </div>
+                <div class="examples">
+                    <span>Examples:</span>
+                    <button data-example="https://youtube.com">YouTube</button>
+                    <button data-example="https://google.com">Google</button>
+                </div>
+                <div id="urlError" class="inline-error" style="display: none;"></div>
+            </div>
+
+            <div id="compareMode" class="input-section" style="display: none;">
+                <div class="compare-inputs">
+                    <div class="compare-url-group">
+                        <label>Website 1:</label>
+                        <input type="text" id="urlInput1" placeholder="First URL">
+                        <div id="url1Error" class="inline-error" style="display: none;"></div>
+                    </div>
+                    <div class="compare-vs">VS</div>
+                    <div class="compare-url-group">
+                        <label>Website 2:</label>
+                        <input type="text" id="urlInput2" placeholder="Second URL">
+                        <div id="url2Error" class="inline-error" style="display: none;"></div>
+                    </div>
+                </div>
+                <button id="compareBtn">Compare</button>
+                <p class="info-text">Each capture takes ~10 seconds. Total time: ~20-25 seconds.</p>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loader"></div>
+                <p id="loadingMessage">Analyzing network traffic...</p>
+            </div>
+
+            <div id="error" class="error-message" style="display: none;"></div>
+
+            <div id="singleResults" style="display: none;">
+                <div class="result-card">
+                    <h2>Fingerprint Summary</h2>
+                    <div id="summaryContent"></div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Protocol Distribution</h3>
+                        <canvas id="protocolChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Packet Size Distribution</h3>
+                        <canvas id="packetSizeChart"></canvas>
+                    </div>
+                    <div class="chart-card full-width">
+                        <h3>Traffic Over Time</h3>
+                        <canvas id="trafficTimeline"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="compareResults" style="display: none;">
+                <div class="comparison-container">
+                    <div class="compare-card" id="compareCard1"></div>
+                    <div class="compare-card" id="compareCard2"></div>
+                </div>
+                
+                <div class="result-card">
+                    <h2>Comparison Analysis</h2>
+                    <div id="diffContent"></div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Protocol Comparison</h3>
+                        <canvas id="compareProtocolChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Traffic Timeline Comparison</h3>
+                        <canvas id="compareTimelineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Network Fingerprint Generator - Educational tool for networking students</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

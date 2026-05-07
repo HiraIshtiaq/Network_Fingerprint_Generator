@@ -4,3 +4,4 @@ temp/
 .venv/
 *.pcap
 fingerprints/
+.DS_Store

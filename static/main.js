@@ -252,6 +252,17 @@ function displaySingleResults(fp) {
             </div>
         </div>
         ` : ''}
+        ${fp.capture_metadata ? `
+        <div class="dns-section">
+            <h4>Capture Diagnostics:</h4>
+            <div class="dns-list">
+                <div class="dns-item">Hostname: ${escapeHtml(fp.capture_metadata.target_hostname || '?')}</div>
+                <div class="dns-item">Resolved IPs (${(fp.capture_metadata.target_ips || []).length}): ${escapeHtml((fp.capture_metadata.target_ips || []).join(', ') || 'none')}</div>
+                <div class="dns-item">BPF filter: <code>${escapeHtml(fp.capture_metadata.bpf_filter || 'n/a')}</code></div>
+                <div class="dns-item">Packets captured: ${fp.capture_metadata.packets_captured_raw || 0}</div>
+            </div>
+        </div>
+        ` : ''}
     `;
     
     createProtocolChart(fp);

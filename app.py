@@ -64,7 +64,9 @@ def analyze():
             'dns_resolved_ip': resolved_ip,
             'packets_captured_raw': capture_result.get('raw_packet_count', 0),
             'packets_filtered': capture_result.get('packet_count', 0),
-            'target_hostname': parsed_url.hostname
+            'target_hostname': parsed_url.hostname,
+            'target_ips': capture_result.get('target_ips', []),
+            'bpf_filter': capture_result.get('bpf_filter', ''),
         }
         
         if os.path.exists(pcap_file):
